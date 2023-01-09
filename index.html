@@ -19,7 +19,7 @@
         <link rel="next" href="ansibleee/">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.3">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.f56500e0.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6b71719e.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.2505c338.min.css">
@@ -276,12 +276,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" tabindex="0" aria-expanded="false">
           Custom Resources
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -437,6 +438,25 @@ $
 To see the result of the playbook run, use <code>oc logs</code>.
 <div class="highlight"><pre><span></span><code>oc logs $(oc get pods | grep ansible | awk {&#39;print $1&#39;})
 </code></pre></div></p>
+<h2 id="using-ansibleee-operator-with-tripleo-ansible">Using ansibleee-operator with TripleO Ansible<a class="headerlink" href="#using-ansibleee-operator-with-tripleo-ansible" title="Permanent link">#</a></h2>
+<p>When the ansibleee-operator spawns a job the
+<a href="https://ansible-runner.readthedocs.io/en/stable">ansible-runner</a>
+can use playbooks and roles contained in its image.</p>
+<p>An openstack-tripleo-ansible-ee operator image is hosted at
+<a href="http://quay.io/tripleomastercentos9/openstack-tripleo-ansible-ee">quay.io/tripleomastercentos9/openstack-tripleo-ansible-ee</a>
+which contains <a href="https://opendev.org/openstack/tripleo-ansible">tripleo-ansible</a>.
+The following commands may be used to inspect the content.
+<div class="highlight"><pre><span></span><code>podman pull quay.io/tripleomastercentos9/openstack-tripleo-ansible-ee
+IMAGE_ID=$(podman images --filter reference=openstack-tripleo-ansible-ee --format &quot;{{.Id}}&quot;)
+podman run $IMAGE_ID ls -l
+</code></pre></div>
+The container is built with
+<a href="https://specs.openstack.org/openstack/tripleo-specs/specs/victoria/simple-container-generation.html">TCIB</a>
+using a
+<a href="https://opendev.org/openstack/tripleo-common/src/branch/master/container-images/tcib/tripleo-ansible-ee/tripleo-ansible-ee.yaml">tripleo-ansible-ee.yaml</a>
+file hosted in tripleo-common. When a patch is merged in
+tripleo-ansible a new version of the openstack-tripleo-ansible-ee
+image is built by the CI system within minutes.</p>
 
   <hr>
 <div class="md-source-file">
@@ -484,10 +504,10 @@ To see the result of the playbook run, use <code>oc logs</code>.
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["search.suggest", "search.highlight", "search.share"], "search": "assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.suggest", "search.highlight", "search.share"], "search": "assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.5cf534bf.min.js"></script>
+      <script src="assets/javascripts/bundle.ba449ae6.min.js"></script>
       
     
   </body>
