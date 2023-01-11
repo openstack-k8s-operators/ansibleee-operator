@@ -1,0 +1,23 @@
+apiVersion: redhat.com/v1alpha1
+kind: AnsibleEE
+metadata:
+  name: ansibleee-plugin
+  namespace: openstack
+spec:
+  image: quay.io/adrbrown/osp-ansible-runner:latest
+  args: ["ansible-galaxy", "collection", "list"]
+  extraMounts:
+    - volumes:
+      - name: edpm-inventory
+        configMap:
+          name: edpm-configmap
+      - name: inventory
+        configMap:
+          name: plugin-configmap
+      mounts:
+      - name: edpm-inventory
+        mountPath: /runner/inventory/edpm_inventory.yaml
+        subPath: edpm_inventory.yaml
+      - name: inventory
+        mountPath: /runner/inventory/inventory.yaml
+        subPath: inventory.yaml
